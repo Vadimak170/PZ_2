@@ -1,0 +1,95 @@
+#include <iostream>
+#include <stdlib.h>
+#include <locale>
+#include <ctime>
+#include <stdio.h>
+#include <time.h>
+
+using namespace std;
+int             GT(int & a, int & b)
+{
+    return a > b;
+}
+void LINEARINSERTION(int a[], unsigned long n)
+{
+    unsigned long   i,
+                    j;
+    int           tmp;
+
+    for (i = 1; i < n; i++)
+        for (j = i; j > 0 && GT(a[j - 1], a[j]); j--) {
+
+            tmp = a[j];
+            a[j] = a[j - 1];
+            a[j - 1] = tmp;
+        }
+}
+void generator(int* arr, int* arr2,int* arr3,int* arr4, int n)
+{
+   srand(time(NULL));
+   for (int i(0); i<n; i++){
+    arr[i]=0+rand()%10;
+    arr2[i]=arr[i];
+    arr3[i]=arr[i];
+    arr4[i]=arr[i];}
+   cout << "Данные cгенерированы.\n";
+}
+void selection(int *ar, int size)
+ {
+     int i, j, mx, nmx;
+
+     for(i = 0; i < size-1; i++)
+       {
+         mx=ar[i];
+         nmx=i;
+         for(j = i+1; j < size; j++)
+           {
+             if (ar[j]<mx)
+                {
+                 mx=ar[j];
+                 nmx=j;
+                 }
+           }
+          ar[nmx]=ar[i];
+          ar[i]=mx;
+           }
+        cout<<"Массив отсортирован методом выбора.\n";
+     }
+     void GnomeSort(int *A, int N) {
+    int i = 0;
+    while(i < N) {
+        if(i == 0 || A[i - 1] <= A[i]) ++i;
+        else {
+            int Temp = A[i];
+            A[i] = A[i - 1];
+            A[i - 1] = Temp;
+            --i;
+        }
+    }
+}
+void checksort(int *arr,int n)
+{   if (n>9)
+    for(int i(0);i<10;i++)
+        cout<<arr[i];
+}
+int main()
+{setlocale(LC_ALL,"Russian");
+    int n;
+    int sizeC=11;
+    cout<<"Введите размер массива:";
+       cin>>n;
+       int *arr = new int[n];
+       int *arr2 = new int[n];
+        int *arr3 = new int[n];
+       int *arr4 = new int[n];
+    generator(arr,arr2,arr3,arr4,n);
+    clock_t start = clock();
+        selection(arr,n);
+    clock_t end = clock();
+     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
+      printf("Время сортировки выбором: %f seconds\n", seconds);
+      LINEARINSERTION(arr2,n);
+    GnomeSort(arr3,n);
+        delete [] arr;
+    return 0;
+}
